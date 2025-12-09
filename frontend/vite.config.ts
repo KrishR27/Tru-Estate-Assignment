@@ -12,5 +12,11 @@ export default defineConfig({
         changeOrigin: true
       }
     }
+  },
+  // Build configuration for production
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    minify: 'terser',
   }
 })
