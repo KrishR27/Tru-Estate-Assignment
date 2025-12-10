@@ -6,7 +6,7 @@ dist
 
 # Backend
 backend/node_modules
-backend/dist
+# backend/dist  # Commented out to allow dist folder in git
 backend/.env
 
 # Frontend
