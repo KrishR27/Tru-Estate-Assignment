@@ -12,25 +12,14 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
 // Middleware
-// CORS configuration for production
-// Supports single URL, comma-separated URLs, or '*' for all origins
-const getCorsOrigin = () => {
-    if (process.env.FRONTEND_URL) {
-        const origins = process.env.FRONTEND_URL.split(',').map(url => url.trim());
-        return origins.length === 1 ? origins[0] : origins;
-    }
-    if (process.env.CORS_ORIGIN) {
-        const origins = process.env.CORS_ORIGIN.split(',').map(url => url.trim());
-        return origins.length === 1 ? origins[0] : origins;
-    }
-    return '*'; // Allow all origins in development
-};
-const corsOptions = {
-    origin: getCorsOrigin(),
-    credentials: true,
+// CORS configuration - Allow all origins
+app.use((0, cors_1.default)({
+    origin: '*', // Allow all origins
+    credentials: false, // Set to false when using '*'
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     optionsSuccessStatus: 200
-};
-app.use((0, cors_1.default)(corsOptions));
+}));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // MongoDB Connection
